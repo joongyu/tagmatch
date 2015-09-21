@@ -11,8 +11,80 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var esClient *EsClient
+
+const (
+	ES_HOST = "localhost"
+	ES_PORT = 9200
+)
+
+func init() {
+	esClient = NewEsClient(ES_HOST, ES_PORT)
+}
+
 func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Welcome!\n")
+}
+
+func IntroCreate(w http.ResponseWriter, r *http.Request) {
+	var introduction Introduction
+	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
+	if err != nil {
+		panic(err)
+	}
+	if err := r.Body.Close(); err != nil {
+		panic(err)
+	}
+	if err := json.Unmarshal(body, &introduction); err != nil {
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+		w.WriteHeader(422) // unprocessable entity
+		if err := json.NewEncoder(w).Encode(err); err != nil {
+			panic(err)
+		}
+	}
+
+	esClient.IntroCreate(introduction)
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(todos); err != nil {
+		panic(err)
+	}
+}
+func IntroResult(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(todos); err != nil {
+		panic(err)
+	}
+}
+func IntroDelete(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(todos); err != nil {
+		panic(err)
+	}
+}
+func ContactCreate(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(todos); err != nil {
+		panic(err)
+	}
+}
+func ContactDelete(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(todos); err != nil {
+		panic(err)
+	}
+}
+func ContactShow(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(todos); err != nil {
+		panic(err)
+	}
 }
 
 func TodoIndex(w http.ResponseWriter, r *http.Request) {

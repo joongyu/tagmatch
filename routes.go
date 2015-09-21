@@ -19,6 +19,42 @@ var routes = Routes{
 		Index,
 	},
 	Route{
+		"IntroductionCreate",
+		"POST",
+		"/intro",
+		IntroCreate,
+	},
+	Route{
+		"IntroductionResult",
+		"GET",
+		"/intro/{introId}",
+		IntroResult,
+	},
+	Route{
+		"IntroductionDelete",
+		"DELETE",
+		"/intro/{introId}",
+		IntroDelete,
+	},
+	Route{
+		"ContactCreate",
+		"POST",
+		"/contacts/{contactId}",
+		ContactCreate,
+	},
+	Route{
+		"ContactDelete",
+		"DELETE",
+		"/contacts/{contactId}",
+		ContactDelete,
+	},
+	Route{
+		"ContactShow",
+		"GET",
+		"/contacts/{contactId}",
+		ContactShow,
+	},
+	Route{
 		"TodoIndex",
 		"GET",
 		"/todos",
