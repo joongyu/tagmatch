@@ -2,7 +2,7 @@ package main
 
 import "time"
 
-type Introduction struct {
+type Contact struct {
 	Id         int       `json:"id"`
 	Name       string    `json:"name"`
 	Age        int       `json:"age"`

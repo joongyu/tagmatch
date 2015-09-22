@@ -43,11 +43,12 @@ func IntroCreate(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	esClient.IntroCreate(introduction)
+	bodyStr, _ := json.Marshal(&introduction)
+	result, _ := esClient.InsertIndex("requests", "inqueue", "", bodyStr)
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(todos); err != nil {
+	if err := json.NewEncoder(w).Encode(result); err != nil {
 		panic(err)
 	}
 }

@@ -1,0 +1,23 @@
+{
+  "query" : {
+    "filtered" : { 
+      "query": {
+        "terms" : { "tags" : ["사랑","여행", "asdf","fda" ] }
+      },
+      "filter" : {
+        "bool" : {
+          "must" : [
+            { "term": { "sex": "male" }},
+            { "range": { "age": { "gte": 10, "lte" : 30 }}}
+          ],
+          "must_not" : [
+            { "term" : { "name" : "honey5210" }}
+            
+          ]
+        }
+      }
+    }
+  },
+  "min_score" : 0.1
+}
+

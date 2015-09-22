@@ -1,0 +1,8 @@
+{
+  "req_age_from" : 20,
+  "req_age_to"   : 40,
+  "age"    : 25,
+  "name"   : "honey5210",
+  "sex"      : "male",
+  "tags"     : ["고양이", "여행", "생일"]
+}
